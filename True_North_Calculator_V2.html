@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Cost Calculator | True North Senior Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--deep-green:#123332;--charcoal:#292929;--slate-blue:#728698;--warm-tan:#BDB2A7;--cream:#FFFAE9;--off-white:#FAF8F5;--white:#FFFFFF;--green-light:#1a4a48}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'DM Sans',sans-serif;color:var(--charcoal);background:var(--off-white);-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:16px 40px;background:rgba(250,248,245,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 20px rgba(18,51,50,0.06)}.nav-wrapper{width:100%;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:var(--deep-green);text-decoration:none}.nav-logo span{color:var(--slate-blue);font-weight:400}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-link{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--charcoal);text-decoration:none;font-weight:500;transition:color .3s,border-bottom .3s;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav-link:hover{color:var(--slate-blue);border-bottom-color:var(--slate-blue)}.nav-link i{font-size:.85rem}
+.calc-hero{padding:80px 40px 50px;text-align:center;background:linear-gradient(180deg,var(--white) 0%,var(--off-white) 100%);position:relative;overflow:hidden}
+.calc-hero .tag{display:inline-flex;align-items:center;gap:8px;background:var(--cream);border:1px solid var(--warm-tan);padding:5px 14px;border-radius:100px;font-size:.75rem;font-weight:600;color:var(--deep-green);letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px}
+.calc-hero .tag::before{content:'';width:6px;height:6px;background:var(--deep-green);border-radius:50%}
+.calc-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:600;color:var(--deep-green);line-height:1.2;margin-bottom:16px}
+.calc-hero h1 em{font-style:italic;color:var(--slate-blue)}
+.calc-hero p{font-size:1.05rem;color:var(--charcoal);opacity:.75;max-width:560px;margin:0 auto;line-height:1.7}
+.calc-hero .meta{font-size:.85rem;color:var(--slate-blue);margin-top:16px;display:flex;align-items:center;justify-content:center;gap:20px}
+.meta-item{display:flex;align-items:center;gap:8px}.meta-item i{color:var(--deep-green);font-size:1rem}
+.calc-container{max-width:680px;margin:40px auto 80px;padding:0 40px}
+.calc-card{background:var(--white);border:1px solid rgba(189,178,167,0.25);border-radius:20px;padding:40px}
+.calc-section{margin-bottom:32px}.calc-section:last-of-type{margin-bottom:0}
+.calc-section h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--deep-green);margin-bottom:4px}
+.calc-section .hint{font-size:.82rem;color:var(--slate-blue);margin-bottom:16px;line-height:1.5}
+.select-group{display:flex;flex-direction:column;gap:10px}
+.select-pill{padding:14px 18px;background:var(--off-white);border:1.5px solid transparent;border-radius:10px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:12px;font-size:.92rem}
+.select-pill:hover{border-color:var(--warm-tan);background:var(--white)}
+.select-pill.selected{border-color:var(--deep-green);background:rgba(18,51,50,0.03)}
+.select-pill .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--warm-tan);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.select-pill.selected .dot{border-color:var(--deep-green)}
+.select-pill.selected .dot::after{content:'';width:8px;height:8px;background:var(--deep-green);border-radius:50%}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.form-row.full{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:.82rem;font-weight:600;color:var(--charcoal)}
+.field input,.field select{padding:12px 14px;border:1.5px solid rgba(189,178,167,0.4);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.92rem;color:var(--charcoal);background:var(--white);outline:none;transition:border-color .3s}
+.field input:focus,.field select:focus{border-color:var(--deep-green)}
+.consent-row{display:flex;gap:10px;align-items:flex-start;margin-top:16px}
+.consent-row input[type="checkbox"]{margin-top:3px;accent-color:var(--deep-green);flex-shrink:0}
+.consent-row label{font-size:.78rem;color:var(--slate-blue);line-height:1.5}
+.divider{border:none;border-top:1px solid #bdb2a740;margin:32px 0}
+.btn-calculate{width:100%;padding:16px;border-radius:10px;background:var(--deep-green);color:var(--white);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-calculate:hover{background:var(--green-light);transform:translateY(-1px);box-shadow:0 6px 24px rgba(18,51,50,0.2)}
+.btn-calculate::after{content:'→'}
+.results-container{display:none;max-width:100%;margin:0 auto;padding:0 40px 80px;animation:fadeIn .5s ease}
+.results-container.active{display:block}
+.cost-display{background:var(--deep-green);border-radius:20px;padding:48px 40px;text-align:center;position:relative;overflow:hidden;margin-bottom:32px}
+.cost-display::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,0.05)}
+.cost-label{font-size:.85rem;color:var(--warm-tan);letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.cost-range{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3rem);font-weight:700;color:var(--white);margin-bottom:8px}
+.cost-annual{font-size:.95rem;color:rgba(255,255,255,0.6);margin-bottom:6px}
+.cost-timeline-note{font-size:.82rem;color:rgba(255,255,255,0.45);margin-bottom:20px;font-style:italic}
+.cost-note{font-size:.82rem;color:rgba(255,255,255,0.4);line-height:1.6;max-width:480px;margin:0 auto}
+.breakdown-card{background:var(--white);border:1px solid rgba(189,178,167,0.25);border-radius:20px;margin-bottom:24px;overflow:hidden}
+.breakdown-header{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;user-select:none}
+.breakdown-header:hover{background:rgba(250,248,245,0.6)}
+.breakdown-header h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--deep-green);display:flex;align-items:center;gap:10px}
+.breakdown-header h3 i{color:var(--slate-blue);font-size:1rem}
+.breakdown-header .toggle{font-size:1.4rem;font-weight:300;color:var(--slate-blue);transition:transform .3s;line-height:1}
+.breakdown-card.open .breakdown-header .toggle{transform:rotate(45deg)}
+.breakdown-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.breakdown-card.open .breakdown-body{max-height:2000px}
+.breakdown-inner{padding:0 24px 24px}
+.factor-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(189,178,167,0.12)}
+.factor-row:last-child{border-bottom:none}
+.factor-left{display:flex;align-items:center;gap:12px;flex:1}
+.factor-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.95rem}
+.factor-label{font-size:.88rem;color:var(--charcoal)}
+.factor-label .field-name{font-weight:600;display:block;margin-bottom:2px}
+.factor-label .field-answer{font-size:.8rem;color:var(--slate-blue)}
+.factor-impact{font-size:.82rem;font-weight:600;padding:4px 12px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-left:12px}
+.factor-impact.up{background:#FCEBEB;color:#791F1F}
+.factor-impact.down{background:#EAF3DE;color:#27500A}
+.factor-impact.neutral{background:rgba(189,178,167,0.15);color:var(--slate-blue)}
+.factor-impact.base{background:var(--cream);color:#633806}
+.factor-explanation{padding:0 0 14px 48px;font-size:.8rem;color:var(--slate-blue);line-height:1.55;margin-top:-6px}
+.factor-summary{margin-top:16px;padding:16px 20px;background:var(--off-white);border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+.factor-summary-label{font-size:.85rem;font-weight:600;color:var(--charcoal)}
+.factor-summary-value{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--deep-green)}
+.methodology-note{margin-top:12px;font-size:.75rem;color:var(--slate-blue);line-height:1.6;padding:0 4px}
+.how-pay{background:var(--white);border:1px solid rgba(189,178,167,0.25);border-radius:20px;padding:36px;margin-bottom:24px}
+.how-pay h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--deep-green);margin-bottom:8px}
+.how-pay .intro{font-size:.92rem;color:var(--charcoal);opacity:.75;line-height:1.7;margin-bottom:24px}
+.pay-option{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(189,178,167,0.15)}.pay-option:last-child{border-bottom:none}
+.pay-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.pay-option:nth-child(1) .pay-icon{background:rgba(18,51,50,0.06)}
+.pay-option:nth-child(2) .pay-icon{background:var(--cream)}
+.pay-option:nth-child(3) .pay-icon{background:rgba(114,134,152,0.08)}
+.pay-option:nth-child(4) .pay-icon{background:rgba(189,178,167,0.15)}
+.pay-option:nth-child(5) .pay-icon{background:rgba(18,51,50,0.04)}
+.pay-details h4{font-size:.95rem;font-weight:600;color:var(--charcoal);margin-bottom:4px}
+.pay-details p{font-size:.85rem;color:var(--slate-blue);line-height:1.6}
+.pay-icon i{color:var(--deep-green);font-weight:600}
+.pay-highlight{background:var(--cream);border:1px solid rgba(189,178,167,0.3);border-radius:10px;padding:12px 16px;margin-top:4px}
+.pay-highlight p{color:var(--deep-green)!important;font-weight:500;font-size:.82rem!important}
+.insurance-cta{background:linear-gradient(135deg,var(--cream) 0%,rgba(255,250,233,0.5) 100%);border:1.5px solid var(--warm-tan);border-radius:20px;padding:36px;text-align:center;margin-bottom:24px}
+.insurance-cta h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--deep-green);margin-bottom:10px}
+.insurance-cta p{font-size:.92rem;color:var(--charcoal);opacity:.8;line-height:1.7;margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-insurance{display:inline-flex;align-items:center;gap:10px;background:var(--deep-green);color:var(--white);padding:14px 28px;border-radius:8px;font-size:.95rem;font-weight:600;text-decoration:none;transition:all .3s}
+.btn-insurance:hover{background:var(--green-light);transform:translateY(-2px);box-shadow:0 6px 24px rgba(18,51,50,0.2)}
+.btn-insurance::after{content:'→'}
+.alt-ctas{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+.btn-alt{padding:12px 24px;border-radius:8px;font-size:.88rem;font-weight:500;text-decoration:none;border:1.5px solid var(--warm-tan);color:var(--charcoal);transition:all .3s}
+.btn-alt:hover{border-color:var(--deep-green);color:var(--deep-green)}
+.btn-alt i{font-size:.9rem}
+.disclaimer{font-size:.75rem;color:var(--slate-blue);text-align:center;line-height:1.6;margin-top:32px;opacity:.7}
+.btn-guide-preview{padding:16px 40px;border-radius:10px;background:var(--deep-green);color:var(--white);font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;border:none;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:24px}
+.btn-guide-preview:hover{background:var(--green-light);transform:translateY(-1px);box-shadow:0 6px 24px rgba(18,51,50,0.2)}
+.btn-guide-preview::after{content:'→'}
+.how-pay-card{background:var(--white);border:1px solid rgba(189,178,167,0.25);border-radius:20px;padding:36px;margin-bottom:24px;overflow:hidden}
+.how-pay-card .breakdown-header{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;user-select:none;margin:-36px -36px 24px -36px}
+.how-pay-card.open .breakdown-header{background:rgba(250,248,245,0.6)}
+.how-pay-card .breakdown-header{justify-content:center;text-align:center}.how-pay-card .breakdown-header h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:var(--deep-green);display:flex;align-items:center;justify-content:center;gap:10px}
+.how-pay-card .breakdown-header h3 i{color:var(--slate-blue);font-size:1rem}
+.how-pay-card .breakdown-header .toggle{font-size:1.4rem;font-weight:300;color:var(--slate-blue);transition:transform .3s;line-height:1}
+.how-pay-card.open .breakdown-header .toggle{transform:rotate(45deg)}
+.how-pay-card .breakdown-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.how-pay-card.open .breakdown-body{max-height:2000px}
+.how-pay-card .breakdown-inner{padding:0 24px 24px}
+.how-pay-card .intro{font-size:.92rem;color:var(--charcoal);opacity:.75;line-height:1.7;margin-bottom:24px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){nav{padding:14px 24px}.nav-links{gap:16px}.nav-link{font-size:.85rem}}@media(max-width:600px){.calc-hero,.calc-container,.results-container{padding-left:20px;padding-right:20px}.calc-card{padding:28px 20px}.cost-display{padding:36px 24px}.form-row{grid-template-columns:1fr}.nav-links{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-wrapper">
+    <a href="https://truenorthseniorcare.com" class="nav-logo">True North <span>Senior Care</span></a>
+    <div class="nav-links">
+      <a href="https://truenorthseniorcare.com/guide" class="nav-link"><i class="fas fa-file"></i> Free Guide</a>
+      <a href="https://truenorthseniorcare.com/take-quiz" class="nav-link"><i class="fas fa-clipboard"></i> Assessment</a>
+    </div>
+  </div>
+</nav>
+<section class="calc-hero">
+  <div class="tag">FREE CALCULATOR</div>
+  <h1>What Does Senior Care Actually Cost in <em>Georgia?</em></h1>
+  <p>Get a realistic estimate for your situation — not a national average that doesn't mean anything. Takes about 90 seconds.</p>
+  <div class="meta">
+    <span class="meta-item"><i class="fas fa-calculator"></i> Personalized estimate</span>
+    <span class="meta-item"><i class="fas fa-hourglass-end"></i> About 90 seconds</span>
+    <span class="meta-item"><i class="fas fa-chart-bar"></i> Georgia-specific data</span>
+  </div>
+</section>
+
+<div class="calc-container" id="calcForm">
+  <div class="calc-card">
+
+    <!-- Q1: Care for -->
+    <div class="calc-section">
+      <h3>Who is care being planned for?</h3>
+      <div class="hint">This helps us tailor the estimate and context to your situation.</div>
+      <div class="select-group" id="careFor">
+        <div class="select-pill" data-value="Myself" onclick="selectPill(this)"><span class="dot"></span>Myself</div>
+        <div class="select-pill" data-value="Parent" onclick="selectPill(this)"><span class="dot"></span>A parent</div>
+        <div class="select-pill" data-value="Spouse" onclick="selectPill(this)"><span class="dot"></span>My spouse or partner</div>
+        <div class="select-pill" data-value="Other" onclick="selectPill(this)"><span class="dot"></span>Another family member</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q2: Age range -->
+    <div class="calc-section">
+      <h3>How old is the person who may need care?</h3>
+      <div class="hint">Age is one of the strongest predictors of care needs and costs.</div>
+      <div class="select-group" id="ageRange">
+        <div class="select-pill" data-value="Under 65" onclick="selectPill(this)"><span class="dot"></span>Under 65</div>
+        <div class="select-pill" data-value="65-74" onclick="selectPill(this)"><span class="dot"></span>65 – 74</div>
+        <div class="select-pill" data-value="75-84" onclick="selectPill(this)"><span class="dot"></span>75 – 84</div>
+        <div class="select-pill" data-value="85+" onclick="selectPill(this)"><span class="dot"></span>85 or older</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q3: Independence -->
+    <div class="calc-section">
+      <h3>How independent are they currently?</h3>
+      <div class="hint">Think about daily activities: bathing, dressing, meals, medication, mobility.</div>
+      <div class="select-group" id="independence">
+        <div class="select-pill" data-value="Fully independent" onclick="selectPill(this)"><span class="dot"></span>Fully independent — no help needed</div>
+        <div class="select-pill" data-value="Occasional help" onclick="selectPill(this)"><span class="dot"></span>Needs occasional help with some tasks</div>
+        <div class="select-pill" data-value="Daily help" onclick="selectPill(this)"><span class="dot"></span>Needs help with daily activities</div>
+        <div class="select-pill" data-value="Cannot live alone" onclick="selectPill(this)"><span class="dot"></span>Cannot safely live alone</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q4: Level of care -->
+    <div class="calc-section">
+      <h3>What level of care is likely needed?</h3>
+      <div class="hint">Not sure is a valid answer — it widens the estimate to show the full possible range.</div>
+      <div class="select-group" id="careLevel">
+        <div class="select-pill" data-value="Assisted living" onclick="selectPill(this)"><span class="dot"></span>Assisted living</div>
+        <div class="select-pill" data-value="Memory care" onclick="selectPill(this)"><span class="dot"></span>Memory care</div>
+        <div class="select-pill" data-value="Not sure" onclick="selectPill(this)"><span class="dot"></span>Not sure yet</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q5: Timeline -->
+    <div class="calc-section">
+      <h3>When might care be needed?</h3>
+      <div class="hint">We use this to project costs forward at ~9% annual growth (Genworth trend data).</div>
+      <div class="select-group" id="timeline">
+        <div class="select-pill" data-value="Just researching" onclick="selectPill(this)"><span class="dot"></span>Just researching — no urgency right now</div>
+        <div class="select-pill" data-value="1-3 years" onclick="selectPill(this)"><span class="dot"></span>Within the next 1–3 years</div>
+        <div class="select-pill" data-value="12 months" onclick="selectPill(this)"><span class="dot"></span>Within the next 12 months</div>
+        <div class="select-pill" data-value="Immediately" onclick="selectPill(this)"><span class="dot"></span>We may need help soon or immediately</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q6: Payment -->
+    <div class="calc-section">
+      <h3>How are you thinking about paying for care?</h3>
+      <div class="hint">This doesn't change the estimate but surfaces relevant funding context in your results.</div>
+      <div class="select-group" id="payment">
+        <div class="select-pill" data-value="Savings" onclick="selectPill(this)"><span class="dot"></span>Savings or personal funds</div>
+        <div class="select-pill" data-value="LTC insurance" onclick="selectPill(this)"><span class="dot"></span>Long-term care insurance</div>
+        <div class="select-pill" data-value="Medicaid" onclick="selectPill(this)"><span class="dot"></span>Medicaid</div>
+        <div class="select-pill" data-value="Not sure" onclick="selectPill(this)"><span class="dot"></span>Not sure yet</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q7: Budget -->
+    <div class="calc-section">
+      <h3>What's your estimated monthly budget?</h3>
+      <div class="hint">Helps flag if your estimate falls outside your planning range.</div>
+      <div class="select-group" id="budget">
+        <div class="select-pill" data-value="Under $3,000" onclick="selectPill(this)"><span class="dot"></span>Under $3,000 / month</div>
+        <div class="select-pill" data-value="$3,000-$5,000" onclick="selectPill(this)"><span class="dot"></span>$3,000 – $5,000 / month</div>
+        <div class="select-pill" data-value="$5,000-$8,000" onclick="selectPill(this)"><span class="dot"></span>$5,000 – $8,000 / month</div>
+        <div class="select-pill" data-value="$8,000+" onclick="selectPill(this)"><span class="dot"></span>$8,000+ / month</div>
+        <div class="select-pill" data-value="Not sure" onclick="selectPill(this)"><span class="dot"></span>Not sure yet</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Q8: Contact info -->
+    <div class="calc-section">
+      <h3>Where should we send your estimate?</h3>
+      <div class="hint">We'll email you a personalized summary with your cost breakdown and funding options.</div>
+      <div class="form-row">
+        <div class="field"><label>First Name *</label><input type="text" id="firstName" placeholder="First name"></div>
+        <div class="field"><label>Last Name *</label><input type="text" id="lastName" placeholder="Last name"></div>
+      </div>
+      <div class="form-row full">
+        <div class="field"><label>Email *</label><input type="email" id="email" placeholder="you@email.com"></div>
+      </div>
+      <div class="form-row full">
+        <div class="field"><label>Phone *</label><input type="tel" id="phone" placeholder="(555) 123-4567"></div>
+      </div>
+      <div class="consent-row">
+        <input type="checkbox" id="smsConsent">
+        <label for="smsConsent">I agree to receive text messages about my care planning inquiry. Message &amp; data rates may apply. Reply STOP to unsubscribe.</label>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <button class="btn-calculate" onclick="calculate()">Get My Estimate</button>
+  </div>
+</div>
+
+<div class="results-container" id="results">
+
+  <!-- Cost display — populated by calculate() -->
+  <div class="calc-container" style="margin-bottom:0;padding-bottom:0;">
+    <div class="cost-display">
+      <div class="cost-label" id="costLabel">Estimated monthly cost in Georgia (2026)</div>
+      <div class="cost-range" id="costRange">—</div>
+      <div class="cost-annual" id="costAnnual"></div>
+      <div class="cost-timeline-note" id="costTimelineNote"></div>
+      <p class="cost-note">Personalized estimate for <span id="careLevelText">senior care</span> in Georgia based on your answers. Actual costs vary by community and individual needs.</p>
+    </div>
+  </div>
+
+  <!-- Factor breakdown — populated by calculate() -->
+  <div class="calc-container" style="padding-top:24px;">
+    <div class="breakdown-card" id="breakdownCard">
+      <div class="breakdown-header" onclick="this.closest('.breakdown-card').classList.toggle('open')">
+        <h3><i class="fas fa-chart-bar"></i> How We Calculated Your Estimate</h3>
+        <span class="toggle">+</span>
+      </div>
+      <div class="breakdown-body">
+        <div class="breakdown-inner" id="breakdownInner"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="how-pay-card" id="howPayCard">
+    <div class="breakdown-header" onclick="toggleHowPay()">
+      <h3><i class="fas fa-credit-card"></i> How Families Typically Pay for Care</h3>
+      <span class="toggle">+</span>
+    </div>
+    <div class="breakdown-body">
+      <div class="breakdown-inner">
+        <p class="intro">This is the section most families wish someone had explained sooner. Here's a brief overview of the most common funding approaches:</p>
+        <div class="pay-option"><div class="pay-icon"><i class="fas fa-coins"></i></div><div class="pay-details"><h4>Personal savings & retirement assets</h4><p>The most common approach, but rarely sustainable for multi-year care needs without additional planning.</p></div></div>
+        <div class="pay-option"><div class="pay-icon"><i class="fas fa-shield"></i></div><div class="pay-details"><h4>Long-term care insurance</h4><p>Specifically designed to cover assisted living, memory care, and home health costs. Policies vary widely in coverage and cost.</p><div class="pay-highlight"><p>If you don't have a policy, it may still be worth exploring depending on age and health status.</p></div></div></div>
+        <div class="pay-option"><div class="pay-icon"><i class="fas fa-file"></i></div><div class="pay-details"><h4>Life insurance with LTC riders or conversion</h4><p>Many families don't realize certain life insurance policies can be structured to fund long-term care. This is one of the most underutilized planning tools available.</p><div class="pay-highlight"><p>Worth exploring even if you already have life insurance — conversion options may apply.</p></div></div></div>
+        <div class="pay-option"><div class="pay-icon"><i class="fas fa-building"></i></div><div class="pay-details"><h4>Medicaid</h4><p>Available for qualifying individuals, but with significant asset and income limitations. Advance planning can make a major difference in eligibility.</p></div></div>
+        <div class="pay-option"><div class="pay-icon"><i class="fas fa-star"></i></div><div class="pay-details"><h4>VA Aid & Attendance benefits</h4><p>For veterans and surviving spouses, this benefit can provide meaningful monthly support toward care costs.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="insurance-cta">
+    <h3>Want to understand your insurance options?</h3>
+    <p>Many families discover that an LTC or life insurance policy could significantly protect their savings. We can connect you with a licensed specialist who will evaluate your situation — free, with zero obligation.</p>
+    <a href="/insurance" class="btn-insurance">Learn About Your Insurance Options</a>
+  </div>
+  <div class="alt-ctas">
+    <a href="https://truenorthseniorcare.com/guide" class="btn-alt"><i class="fas fa-download"></i> Download the Planning Guide</a>
+    <a href="https://truenorthseniorcare.com/take-quiz" class="btn-alt"><i class="fas fa-list-check"></i> Take the Readiness Assessment</a>
+    <a href="https://truenorthseniorcare.com/booking" class="btn-alt"><i class="fas fa-phone"></i> Book a Free Planning Call</a>
+  </div>
+  <p class="disclaimer">True North Senior Care provides educational resources about senior care planning. We are not a licensed insurance agency. When families express interest in exploring insurance options, we connect them with licensed, independent professionals. True North may receive referral compensation if a policy is purchased. This does not affect the cost of any policy or the guidance we provide.</p>
+</div>
+<script>
+function selectPill(el){el.parentElement.querySelectorAll('.select-pill').forEach(p=>p.classList.remove('selected'));el.classList.add('selected')}
+function getSelected(id){const s=document.getElementById(id).querySelector('.selected');return s?s.dataset.value:null}
+function toggleHowPay(){document.getElementById('howPayCard').classList.toggle('open')}
+
+function calculate(){
+  const firstName=document.getElementById('firstName').value.trim();
+  const lastName=document.getElementById('lastName').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  if(!firstName||!lastName||!email||!phone){alert('Please fill in your name, email, and phone to receive your estimate.');return;}
+
+  const careLevel=getSelected('careLevel')||'Not sure';
+  const timeline=getSelected('timeline')||'Immediately';
+  const age=getSelected('ageRange')||'Under 65';
+  const independence=getSelected('independence')||'Fully independent';
+  const payment=getSelected('payment')||'Not sure';
+  const budget=getSelected('budget')||'Not sure';
+
+  const baseCosts={'Assisted living':{low:3500,high:6500},'Memory care':{low:5000,high:9000},'Not sure':{low:3500,high:9000}};
+  let{low,high}=baseCosts[careLevel];
+  const baseLow=low,baseHigh=high;
+
+  const factors=[];
+
+  // 1: Care level base
+  factors.push({icon:'<i class="fas fa-house"></i>',bg:'rgba(18,51,50,0.06)',field:'Level of care',answer:careLevel,
+    impact:`Base: $${baseLow.toLocaleString()} – $${baseHigh.toLocaleString()}/mo`,cls:'base',
+    note:careLevel==='Memory care'?'Memory care requires specialized staffing and secured environments, placing it at the higher end of the cost spectrum.':careLevel==='Assisted living'?'Assisted living provides daily support with a range depending on acuity and community amenities.':'Since you\'re unsure, we show the full range spanning both assisted living and memory care.'});
+
+  // 2: Independence — acuity adjustment
+  let adj=0,adjNote='';
+  if(independence==='Cannot live alone'){adj=0.15;adjNote='High-acuity residents require more staff attention and clinical oversight, pushing costs toward the upper end of the range.'}
+  else if(independence==='Daily help'){adj=0.08;adjNote='Needing daily assistance suggests moderate-to-high acuity, which increases staffing costs above the baseline.'}
+  else if(independence==='Occasional help'){adj=0;adjNote='Occasional assistance needs fall within the standard cost range — no adjustment applied.'}
+  else{adj=-0.05;adjNote='Full independence suggests lower acuity needs, which may keep costs toward the lower end of the range.'}
+  low=Math.round(low*(1+adj));high=Math.round(high*(1+adj));
+  factors.push({icon:'<i class="fas fa-person"></i>',bg:'rgba(114,134,152,0.08)',field:'Independence level',answer:independence,
+    impact:adj===0?'No adjustment':(adj>0?`+${Math.round(adj*100)}% acuity uplift`:`${Math.round(adj*100)}% acuity discount`),
+    cls:adj>0?'up':adj<0?'down':'neutral',note:adjNote});
+
+  // 3: Age
+  let ageNote='';
+  if(age==='85+')ageNote='At 85+, care needs tend to escalate significantly. This age group has the highest rates of cognitive decline and functional dependency — roughly 1 in 3 adults over 85 live with dementia.';
+  else if(age==='75-84')ageNote='The 75–84 range is when many families first encounter the need for assisted living or memory care. Dementia prevalence is roughly 17% in this group.';
+  else if(age==='65-74')ageNote='At 65–74, planning ahead is a strong advantage. Most care needs are still 5–10 years out, giving you more time to explore insurance and funding options.';
+  else ageNote='Under 65 is early for assisted living — but early planning gives your family the most options and typically the best pricing on LTC insurance policies.';
+  factors.push({icon:'<i class="fas fa-cake-candles"></i>',bg:'var(--cream)',field:'Age range',answer:age,
+    impact:age==='85+'?'Higher care probability':age==='75-84'?'Peak transition age':'Planning advantage',
+    cls:age==='85+'?'up':age==='Under 65'?'down':'neutral',note:ageNote});
+
+  // 4: Timeline — compound growth
+  const rate=0.09;
+  let yrs=0,tlNote='';
+  if(timeline==='Immediately'){yrs=0;tlNote='Today\'s rates — no inflation adjustment applied.'}
+  else if(timeline==='12 months'){yrs=1;tlNote='Projected 1 year forward at ~9% annual cost growth.'}
+  else if(timeline==='1-3 years'){yrs=2;tlNote='Projected 2 years forward at ~9% annual cost growth (midpoint of 1–3 year range).'}
+  else{yrs=4;tlNote='Projected 4 years forward at ~9% annual cost growth (conservative estimate for 3+ years out).'}
+  const mult=Math.pow(1+rate,yrs);
+  const preLow=low,preHigh=high;
+  low=Math.round(low*mult);high=Math.round(high*mult);
+  const addLow=low-preLow,addHigh=high-preHigh;
+  factors.push({icon:'<i class="fas fa-calendar"></i>',bg:'rgba(189,178,167,0.15)',field:'Estimated timeline',answer:timeline==='Just researching'?'Just researching (3+ years)':timeline,
+    impact:yrs===0?'No adjustment':`+${Math.round((mult-1)*100)}% (+$${addLow.toLocaleString()} – $${addHigh.toLocaleString()}/mo)`,
+    cls:yrs===0?'neutral':'up',note:tlNote});
+
+  // 5: Payment
+  let payNote='';
+  if(payment==='LTC insurance')payNote='Having LTC insurance is a significant planning advantage. Policies can cover a substantial portion of monthly costs. Review your policy details to understand daily/monthly benefit limits and elimination periods.';
+  else if(payment==='Savings')payNote='Relying on savings alone can work for shorter stays, but multi-year care needs can deplete assets quickly. At $6,000/month, a 3-year stay costs $216,000. Exploring insurance options early may provide critical protection.';
+  else if(payment==='Medicaid')payNote='Medicaid covers long-term care for qualifying individuals, but has strict asset limits (typically $2,000 for individuals). Advance planning with an elder law attorney can protect more of your family\'s assets.';
+  else payNote='Not sure how to pay is very common at this stage. Understanding your options — including LTC insurance, life insurance conversions, Medicaid, and VA benefits — is one of the most impactful planning steps you can take.';
+  factors.push({icon:'<i class="fas fa-credit-card"></i>',bg:'rgba(18,51,50,0.04)',field:'Payment approach',answer:payment,
+    impact:payment==='LTC insurance'?'Strong planning position':payment==='Savings'?'May need supplementing':'Explore options',
+    cls:payment==='LTC insurance'?'down':'neutral',note:payNote});
+
+  // 6: Budget
+  let budNote='';
+  if(budget==='Under $3,000')budNote='Your budget range is below the typical cost of assisted living in Georgia. This makes it especially important to explore insurance options, Medicaid eligibility, and VA benefits to close the gap.';
+  else if(budget==='$3,000-$5,000')budNote='This budget covers the lower end of assisted living but may not fully cover memory care or higher-acuity needs. Supplemental funding planning is recommended.';
+  else if(budget==='$5,000-$8,000')budNote='This budget range covers most assisted living options and the lower end of memory care in Georgia. You have solid flexibility.';
+  else if(budget==='$8,000+')budNote='This budget range provides access to premium care options including boutique memory care communities with elevated staffing and amenities.';
+  else budNote='Not knowing your budget is completely normal at this stage. The estimate above can help you start thinking about what range is realistic for your family.';
+  const budImpact=budget==='Under $3,000'?'Below estimated range':budget==='$8,000+'?'Covers most options':budget==='Not sure'?'To be determined':'Review recommended';
+  factors.push({icon:'<i class="fas fa-chart-line"></i>',bg:'rgba(114,134,152,0.06)',field:'Monthly budget',answer:budget,
+    impact:budImpact,cls:budget==='Under $3,000'?'up':budget==='$8,000+'?'down':'neutral',note:budNote});
+
+  // WEBHOOK — GHL calculator workflow
+  const calcScore = 10
+    + (timeline==='Immediately'?35:timeline==='12 months'?25:timeline==='1-3 years'?15:5)
+    + (independence==='Cannot live alone'?25:independence==='Daily help'?15:independence==='Occasional help'?8:3)
+    + (age==='85+'?15:age==='75-84'?10:age==='65-74'?5:2)
+    + (careLevel==='Memory care'?10:5);
+  const calcClassification = calcScore>70?'Hot':calcScore>=40?'Warm':'Cold';
+
+  fetch('https://services.leadconnectorhq.com/hooks/cvOegyEnBcRAe8jaAeEw/webhook-trigger/FPWUaA0GKuhejd0QqlLa',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      first_name:           firstName,
+      last_name:            lastName,
+      email:                email,
+      phone:                phone,
+      care_for:             getSelected('careFor')||'',
+      age_range:            age,
+      independence_level:   independence,
+      level_of_care:        careLevel,
+      care_timeline:        timeline,
+      care_payment_plan:    payment,
+      budget_range:         budget,
+      lead_score:           calcScore,
+      lead_classification:  calcClassification,
+      source:               'calculator'
+    })
+  }).catch(err=>console.warn('GHL calculator webhook error:',err));
+
+  // RENDER
+  const yrLabel=yrs===0?'(2026 rates)':`(projected ${2026+yrs} rates)`;
+  document.getElementById('costRange').textContent=`$${low.toLocaleString()} – $${high.toLocaleString()}/mo`;
+  document.getElementById('costAnnual').textContent=`That's approximately $${(low*12).toLocaleString()} – $${(high*12).toLocaleString()} per year`;
+  document.getElementById('costLabel').textContent=yrs===0?'Estimated monthly cost in Georgia (2026)':`Projected monthly cost in Georgia (${2026+yrs})`;
+  document.getElementById('costTimelineNote').textContent=yrs===0?'':`Includes ${Math.round((mult-1)*100)}% projected cost increase over ${yrs} year${yrs>1?'s':''} at ~9% annual growth`;
+  document.getElementById('careLevelText').textContent=careLevel==='Not sure'?'senior care':careLevel.toLowerCase();
+
+  // BREAKDOWN
+  let html='';
+  factors.forEach(f=>{
+    html+=`<div class="factor-row"><div class="factor-left"><div class="factor-icon" style="background:${f.bg}">${f.icon}</div><div class="factor-label"><span class="field-name">${f.field}</span><span class="field-answer">${f.answer}</span></div></div><span class="factor-impact ${f.cls}">${f.impact}</span></div><div class="factor-explanation">${f.note}</div>`;
+  });
+  html+=`<div class="factor-summary"><span class="factor-summary-label">Your estimated range ${yrLabel}</span><span class="factor-summary-value">$${low.toLocaleString()} – $${high.toLocaleString()}/mo</span></div>`;
+  html+=`<p class="methodology-note"><strong>How this works:</strong> We start with 2026 base rates for ${careLevel.toLowerCase()} in Georgia, adjust for acuity level based on your independence response, then project forward using ~9% annual cost growth based on national senior care cost trends (Genworth Cost of Care Survey). This is an educational estimate, not actuarial pricing. Individual community rates will vary.</p>`;
+  document.getElementById('breakdownInner').innerHTML=html;
+
+  document.getElementById('calcForm').style.display='none';
+  document.getElementById('results').classList.add('active');
+  document.querySelector('.calc-hero').innerHTML=`<div class="tag">Your Estimate</div><h1>Here's what care may cost for <em>your family</em></h1><p>Based on your answers, here's a realistic cost projection for senior care in Georgia.</p>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

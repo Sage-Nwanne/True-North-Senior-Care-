@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Care Planning Timeline | True North Senior Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-green: #123332;
+    --charcoal: #292929;
+    --slate-blue: #728698;
+    --warm-tan: #BDB2A7;
+    --cream: #FFFAE9;
+    --off-white: #FAF8F5;
+    --white: #FFFFFF;
+    --green-light: #1a4a48;
+    --alert-red: #791F1F;
+    --light-red: #FCEBEB;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--charcoal);
+    background: var(--off-white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 1px 20px rgba(18, 51, 50, 0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--slate-blue);
+    font-weight: 400;
+  }
+
+  .nav-back {
+    font-size: 0.85rem;
+    color: var(--slate-blue);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-back:hover { color: var(--deep-green); }
+
+  /* PAGE WRAPPER */
+  .results-page {
+    padding: 100px 40px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    margin-bottom: 60px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--light-red);
+    border: 1px solid #E8BFBF;
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--alert-red);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .result-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--alert-red);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--deep-green);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--alert-red);
+  }
+
+  .hero .subheadline {
+    font-size: 1.15rem;
+    color: var(--charcoal);
+    opacity: 0.85;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+
+  .hero .supporting-text {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.7;
+    line-height: 1.7;
+    max-width: 620px;
+  }
+
+  /* INSIGHTS SECTION */
+  .insights-section {
+    margin-bottom: 60px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--slate-blue);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .insight-card {
+    background: var(--white);
+    border: 1px solid rgba(189, 178, 167, 0.2);
+    border-radius: 14px;
+    padding: 28px;
+    transition: all 0.3s ease;
+  }
+
+  .insight-card:hover {
+    border-color: rgba(189, 178, 167, 0.4);
+    box-shadow: 0 4px 16px rgba(18, 51, 50, 0.08);
+  }
+
+  .insight-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 10px;
+  }
+
+  .insight-card p {
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+
+  /* GUIDANCE SECTION */
+  .guidance-section {
+    background: var(--white);
+    border: 1px solid rgba(189, 178, 167, 0.2);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 60px;
+  }
+
+  .guidance-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 20px;
+  }
+
+  .guidance-section p {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.8;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  .guidance-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* NEXT STEPS SECTION */
+  .next-steps {
+    margin-bottom: 60px;
+  }
+
+  .steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .step-card {
+    background: linear-gradient(135deg, rgba(18, 51, 50, 0.04) 0%, rgba(18, 51, 50, 0.02) 100%);
+    border: 1px solid rgba(18, 51, 50, 0.1);
+    border-radius: 14px;
+    padding: 28px;
+  }
+
+  .step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgba(18, 51, 50, 0.15);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .step-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 10px;
+  }
+
+  .step-card p {
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+
+  /* PRIMARY CTA SECTION */
+  .primary-cta-section {
+    background: var(--deep-green);
+    border-radius: 16px;
+    padding: 50px 40px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .primary-cta-section::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+  }
+
+  .primary-cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .primary-cta-section p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    color: var(--deep-green);
+    padding: 16px 36px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-primary-cta::after {
+    content: '→';
+  }
+
+  /* GUIDE SECTION */
+  .guide-section {
+    background: var(--cream);
+    border: 1.5px solid var(--warm-tan);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  .guide-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 12px;
+  }
+
+  .guide-section p {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.8;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .guide-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .benefit-item {
+    font-size: 0.85rem;
+    color: var(--charcoal);
+    opacity: 0.75;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .benefit-item::before {
+    content: '✓';
+    color: #27500A;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .btn-guide-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--deep-green);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-guide-download:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(18, 51, 50, 0.2);
+  }
+
+  .btn-guide-download::after {
+    content: '↓';
+  }
+
+  /* SECONDARY CTA */
+  .secondary-cta-section {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid rgba(189, 178, 167, 0.2);
+  }
+
+  .secondary-cta-section p {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--deep-green);
+    padding: 12px 28px;
+    border: 1.5px solid var(--warm-tan);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(18, 51, 50, 0.04);
+    border-color: var(--deep-green);
+  }
+
+  .btn-secondary::after {
+    content: '→';
+  }
+
+  /* FOOTER NOTE */
+  .disclaimer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--slate-blue);
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(189, 178, 167, 0.2);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .results-page {
+      padding: 80px 20px 60px;
+    }
+
+    .btn-primary-cta,
+    .btn-guide-download {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .primary-cta-section {
+      padding: 40px 20px;
+    }
+
+    .guidance-section {
+      padding: 28px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">True North <span>Senior Care</span></a>
+  <a href="/calculator" class="nav-back">← Back to Calculator</a>
+</nav>
+
+<div class="results-page">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="result-badge">Needs Attention Soon</div>
+    <h1>It's time to <em>take action</em></h1>
+    <p class="subheadline">Your situation calls for planning in the near term. This doesn't have to feel overwhelming — we're here to help you navigate the options.</p>
+    <p class="supporting-text">Based on your answers, you're likely looking at care needs within the next 12-18 months. The good news? Starting conversations now gives you choices, control, and peace of mind.</p>
+  </section>
+
+  <!-- INSIGHTS SECTION -->
+  <section class="insights-section">
+    <div class="section-label">What This Means For You</div>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <h3>Costs Matter Now</h3>
+        <p>The expenses involved aren't insignificant, but they're manageable with the right planning. Let's talk about realistic numbers and your options.</p>
+      </div>
+      <div class="insight-card">
+        <h3>There Are Choices</h3>
+        <p>You're not locked into one path. Assisted living, memory care, home services, or hybrid models — exploring these options now means better decisions later.</p>
+      </div>
+      <div class="insight-card">
+        <h3>Time is Your Advantage</h3>
+        <p>With a 12-18 month window, you can visit facilities, compare providers, and have thoughtful conversations with family. That matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDANCE SECTION -->
+  <section class="guidance-section">
+    <h2>What You Should Be Thinking About Right Now</h2>
+    <p>First: take a breath. Families navigate this transition every day, and there are established processes that work.</p>
+    <p>Second: this is the time to start conversations with your parent (if possible), siblings, and trusted advisors. What are their preferences? What are the financial realities? What matters most to them — independence, proximity to family, access to specific services?</p>
+    <p>Third: don't rush facility tours or decisions. A structured approach — understanding costs, visiting a few options, checking credentials — removes a lot of the stress and tends to lead to better outcomes.</p>
+  </section>
+
+  <!-- NEXT STEPS SECTION -->
+  <section class="next-steps">
+    <div class="section-label">Your Action Plan</div>
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Have the Conversation</h3>
+        <p>If possible, talk with your parent about preferences, concerns, and priorities. These insights will guide everything that follows.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Understand Your Budget</h3>
+        <p>Review finances, insurance, and potential funding sources. Knowing what's available shapes which options are realistic.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Schedule a Consultation</h3>
+        <p>Talk with a care advisor who knows local options, can answer your specific questions, and help match your parent with the right fit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIMARY CTA SECTION (HIGH URGENCY) -->
+  <section class="primary-cta-section">
+    <h2>Let's Create Your Plan</h2>
+    <p>A quick conversation with one of our care advisors can clarify your options, timeline, and next best steps. No pressure — just clarity.</p>
+    <a href="#book-consultation" class="btn-primary-cta">Schedule a Consultation</a>
+  </section>
+
+  <!-- GUIDE DOWNLOAD SECTION -->
+  <section class="guide-section">
+    <h3>Free Senior Care Planning Guide</h3>
+    <p>A practical resource for families navigating this exact situation — real timelines, real costs, real options.</p>
+    <div class="guide-benefits">
+      <div class="benefit-item">Cost estimate guides</div>
+      <div class="benefit-item">Care setting overview</div>
+      <div class="benefit-item">Conversation framework</div>
+      <div class="benefit-item">Facility checklist</div>
+      <div class="benefit-item">Financial planning tips</div>
+      <div class="benefit-item">Next steps worksheet</div>
+    </div>
+    <a href="/True_North_Guide_Page.html" class="btn-guide-download" download>Download Free Guide</a>
+  </section>
+
+  <!-- SECONDARY CTA -->
+  <section class="secondary-cta-section">
+    <p>Have questions before scheduling a consultation?</p>
+    <a href="/calculator" class="btn-secondary">Ask Our Team</a>
+    <div class="disclaimer">
+      <p>This assessment is for planning purposes. Costs vary by region, facility type, and level of care. We recommend speaking with local providers and care experts for specific recommendations tailored to your situation.</p>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

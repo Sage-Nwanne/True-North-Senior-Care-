@@ -1,0 +1,193 @@
+<style>
+:root {
+  --deep-green: #123332;
+  --charcoal: #292929;
+  --slate-blue: #728698;
+  --warm-tan: #BDB2A7;
+  --cream: #FFFAE9;
+  --off-white: #EBE7DAFF;
+  --white: #FFFFFF;
+  --green-light: #1a4a48;
+  --light-bg: #faf8f5;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--charcoal); background: #EBE7DAFF; -webkit-font-smoothing: antialiased; }
+
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  padding: 16px 40px; display: flex; justify-content: space-between; align-items: center;
+  background: rgba(250,248,245,0.95); backdrop-filter: blur(20px);
+  box-shadow: 0 1px 20px rgba(18,51,50,0.06);
+}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: var(--deep-green); text-decoration: none; }
+.nav-logo span { color: var(--slate-blue); font-weight: 400; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-link { font-size: 0.95rem; color: var(--charcoal); text-decoration: none; transition: color 0.3s; font-weight: 500; }
+.nav-link:hover { color: var(--deep-green); }
+.nav-back { font-size: 0.85rem; color: var(--slate-blue); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+.nav-back:hover { color: var(--deep-green); }
+
+/* HERO */
+.quiz-hero {
+  padding: 120px 40px 60px; text-align: center;
+  background: linear-gradient(180deg, var(--light-bg) 0%, #faf8f5 100%);
+}
+.quiz-hero .tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--cream); border: 1px solid var(--warm-tan);
+  padding: 5px 14px; border-radius: 100px;
+  font-size: 0.75rem; font-weight: 600; color: var(--deep-green);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+}
+.quiz-hero .tag::before { content: ''; width: 6px; height: 6px; background: var(--deep-green); border-radius: 50%; }
+.quiz-hero h1 {
+  font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 600; color: var(--deep-green); line-height: 1.2;
+  margin-bottom: 16px; letter-spacing: -0.02em;
+}
+.quiz-hero h1 em { font-style: italic; color: var(--slate-blue); }
+.quiz-hero p { font-size: 1.05rem; color: var(--charcoal); opacity: 0.75; max-width: 560px; margin: 0 auto 8px; line-height: 1.7; }
+.quiz-hero .meta { font-size: 0.85rem; color: var(--slate-blue); margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 20px; }
+.quiz-hero .meta span { display: flex; align-items: center; gap: 6px; }
+
+/* CTA BUTTON */
+.cta-button {
+  display: inline-block; margin-top: 32px;
+  background: var(--deep-green); color: white;
+  padding: 14px 40px; border-radius: 6px;
+  font-size: 0.95rem; font-weight: 600;
+  text-decoration: none; transition: all 0.3s ease;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(18,51,50,0.2);
+}
+.cta-button:hover {
+  background: var(--green-light); transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(18,51,50,0.3);
+}
+
+/* CONTENT SECTIONS */
+.quiz-content {
+  max-width: 900px; margin: 0 auto; padding: 120px 0px;
+}
+.content-section {
+  margin-bottom: 60px;
+}
+.content-section h2 {
+  font-family: 'Playfair Display', serif; font-size: 2rem;
+  color: var(--deep-green); margin-bottom: 20px;
+  font-weight: 600; line-height: 1.2;
+}
+.content-section h3 {
+  font-family: 'Playfair Display', serif; font-size: 1.4rem;
+  color: var(--deep-green); margin-bottom: 16px; margin-top: 24px;
+  font-weight: 600;
+}
+.content-section p {
+  font-size: 1rem; line-height: 1.8; color: var(--charcoal);
+  opacity: 0.85; margin-bottom: 14px;
+}
+.benefit-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; margin-top: 24px;
+}
+.benefit-card {
+  background: white; padding: 24px; border-radius: 8px;
+  border-left: 4px solid var(--deep-green);
+  box-shadow: 0 2px 12px rgba(18,51,50,0.05);
+}
+.benefit-card h4 {
+  font-size: 1.05rem; font-weight: 600; color: var(--deep-green);
+  margin-bottom: 10px;
+}
+.benefit-card p {
+  font-size: 0.95rem; color: var(--charcoal); opacity: 0.75;
+  margin: 0;
+}
+
+/* FULL WIDTH SECTION */
+.full-width-section {
+  width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 80px 40px;
+}
+
+/* QUIZ EMBED WRAPPER */
+.quiz-embed-wrapper {
+  width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 120px 40px;
+  background: #faf8f5;
+}
+.quiz-embed-wrapper > div {
+  max-width: 900px; margin: 0 auto;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">True North <span>Senior Care</span></a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Free Guide</a>
+    <a href="/" class="nav-link">Cost Calculator</a>
+  </div>
+</nav>
+
+<section class="quiz-hero">
+  <div class="tag">Free Assessment</div>
+  <h1>"Is It Time?" — The Care <em>Readiness</em> Assessment</h1>
+  <p>Most families don't realize their parent needs more help until something goes wrong. This quick, private assessment helps you understand where your family is — and what to do next.</p>
+  <div class="meta">
+    <span>📋 9 questions</span>
+    <span>⏱ About 2 minutes</span>
+    <span>🔒 Completely private</span>
+  </div>
+  <a href="#why-assessment" class="cta-button">Start Assessment</a>
+</section>
+
+<div class="quiz-content">
+  <section class="content-section">
+    <h2>Recognize the Signs</h2>
+    <p>Caring for an aging parent comes with subtle changes that are easy to miss. From forgotten appointments to difficulty managing medications, from struggling with housework to increased isolation—these signs often appear gradually. Our assessment is designed to help you identify whether your parent might benefit from additional support.</p>
+    <p>There's no judgment, no pressure. Just honest answers to practical questions that give you clarity on your parent's true care needs.</p>
+  </section>
+</div>
+
+<section class="full-width-section" style="background: #faf8f5;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--deep-green); margin-bottom: 20px; font-weight: 600; line-height: 1.2;">What You'll Discover</h2>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <h4>Clear Insights</h4>
+        <p>Understand your parent's current care level and identify specific areas where support would help most.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Personalized Results</h4>
+        <p>Receive tailored recommendations based on your family's unique situation and needs.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Next Steps</h4>
+        <p>Get actionable guidance on what options may be right for your family, from in-home care to assisted living.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Peace of Mind</h4>
+        <p>Make informed decisions from a place of confidence, knowing you've thought through all the factors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="quiz-content">
+  <section class="content-section" id="why-assessment">
+    <h2>Why This Assessment Matters</h2>
+    <p>Many families wait too long to have the care conversation. Some miss warning signs. Others assume their parent doesn't need help when they actually do. Our assessment helps bridge that gap.</p>
+    <p>In just 2 minutes, you'll answer straightforward questions about daily activities, health management, safety concerns, and social engagement. Your honest responses paint a clear picture of where aging support might make the biggest difference.</p>
+  </section>
+</div>
+
+<section class="quiz-embed-wrapper">
+  <div>
+    <iframe src="https://api.leadconnectorhq.com/widget/quiz/8q67UGVuzgT7boJopOMA" style="border:none;width:100%;" scrolling="no" id="8q67UGVuzgT7boJopOMA" background="#fffae9" title="quiz"></iframe>
+    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+  </div>
+</section>
+
+</body>

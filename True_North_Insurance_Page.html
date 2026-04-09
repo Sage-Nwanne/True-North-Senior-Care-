@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Care Insurance — True North Senior Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --deep-green: #123332;
+    --charcoal: #292929;
+    --slate-blue: #728698;
+    --warm-tan: #BDB2A7;
+    --cream: #FFFAE9;
+    --off-white: #FAF8F5;
+    --white: #FFFFFF;
+    --green-light: #1a4a48;
+    --green-glow: rgba(18, 51, 50, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--charcoal);
+    background: var(--off-white);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ NAVIGATION ============ */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+
+  nav.scrolled {
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 1px 20px rgba(18, 51, 50, 0.06);
+    padding: 12px 40px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    display: block;
+  }
+
+  .nav-logo span {
+    color: var(--slate-blue);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+  }
+
+  .nav-link:hover {
+    color: var(--slate-blue);
+    border-bottom-color: var(--slate-blue);
+  }
+
+  .nav-link i {
+    font-size: 0.85rem;
+  }
+
+  .nav-cta {
+    background: var(--deep-green) !important;
+    color: var(--white) !important;
+    padding: 10px 24px !important;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: all 0.3s !important;
+    border-bottom: none !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--green-light) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(18, 51, 50, 0.2);
+  }
+
+  /* ============ HERO SECTION ============ */
+  .hero {
+    padding-top: 140px;
+    padding-bottom: 80px;
+    background: linear-gradient(135deg, var(--off-white) 0%, rgba(26, 74, 72, 0.04) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+    color: var(--slate-blue);
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--deep-green);
+    color: var(--white);
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(18, 51, 50, 0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(18, 51, 50, 0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--deep-green);
+    padding: 16px 40px;
+    border: 2px solid var(--deep-green);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-secondary:hover {
+    background: var(--green-glow);
+    transform: translateY(-2px);
+  }
+
+  .hero-image {
+    display: none;
+  }
+
+  /* ============ FEATURES SECTION ============ */
+  .features {
+    padding: 100px 40px;
+    background: var(--white);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: -0.02em;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .feature-card {
+    padding: 30px;
+    background: var(--off-white);
+    border-radius: 12px;
+    border: 1px solid rgba(18, 51, 50, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(18, 51, 50, 0.1);
+    border-color: rgba(18, 51, 50, 0.16);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(18, 51, 50, 0.12);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--deep-green);
+  }
+
+  .feature-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 1.5;
+  }
+
+  .feature-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 12px;
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+    color: var(--slate-blue);
+    line-height: 1.6;
+  }
+
+  /* ============ COVERAGE SECTION ============ */
+  .coverage {
+    padding: 100px 40px;
+    background: linear-gradient(135deg, var(--cream) 0%, rgba(189, 178, 167, 0.1) 100%);
+  }
+
+  .coverage-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .coverage-item {
+    padding: 30px;
+    background: var(--white);
+    border-radius: 10px;
+    border-left: 5px solid var(--deep-green);
+  }
+
+  .coverage-item h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: 12px;
+  }
+
+  .coverage-item ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .coverage-item li {
+    padding: 8px 0;
+    color: var(--slate-blue);
+    font-size: 1rem;
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .coverage-item li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--deep-green);
+    font-weight: bold;
+  }
+
+  /* ============ CTA SECTION ============ */
+  .cta-section {
+    padding: 80px 40px;
+    background: linear-gradient(135deg, var(--deep-green) 0%, var(--green-light) 100%);
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .cta-section p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-light {
+    background: var(--white);
+    color: var(--deep-green);
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-light:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 16px 40px;
+    border: 2px solid var(--white);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 40px;
+    background: var(--charcoal);
+    color: var(--white);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  footer p {
+    opacity: 0.8;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-links { gap: 16px; }
+    .nav-link { font-size: 0.85rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-text h1 { font-size: 2.2rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .coverage-grid { grid-template-columns: 1fr; }
+    .cta-buttons { flex-direction: column; }
+    .btn-primary, .btn-light, .btn-secondary, .btn-outline { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">True North <span>Senior Care</span></a>
+  <div class="nav-links">
+    <a href="/guide" class="nav-link"><i class="fas fa-book"></i>Free Guide</a>
+    <a href="/take-quiz" class="nav-link"><i class="fas fa-clipboard-list"></i>Assessment</a>
+    <a href="/calculator" class="nav-link"><i class="fas fa-calculator"></i>Cost Calculator</a>
+  </div>
+</nav>
+
+<!-- ============ HERO SECTION ============ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Insurance That Bridges the Care Journey</h1>
+      <p>Long-term care planning doesn't have to feel overwhelming. We help families understand their insurance options—from life insurance riders to dedicated long-term care policies—so your family's assets stay your family's assets when care needs arise.</p>
+      <div class="hero-cta">
+        <a href="#coverage" class="btn-primary">Explore Your Options</a>
+        <a href="https://truenorthseniorcare.com/booking" class="btn-secondary">Schedule a Consultation</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      [Insurance & Care Planning Visual]
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES SECTION ============ -->
+<section class="features" id="features">
+  <h2 class="section-title">What Matters in Care Planning Insurance</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 1v22m11-9H1M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"/>
+        </svg>
+      </div>
+      <h3>Transparent Pricing</h3>
+      <p>Clear rates structured for independent living and assisted care phases. No surprise adjustments or hidden costs.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+        </svg>
+      </div>
+      <h3>Comprehensive Coverage</h3>
+      <p>Medical, behavioral health, and wellness services integrated into every plan tier without fragmentation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+          <polyline points="13 2 13 9 20 9"/>
+          <polyline points="9 15 12 18 16 14"/>
+        </svg>
+      </div>
+      <h3>Simple Enrollment</h3>
+      <p>Straightforward application. Clarity on what's covered before you commit to anything.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <h3>Real Guidance</h3>
+      <p>Our team understands senior care transitions. We answer questions honestly and work at your family's pace.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </div>
+      <h3>Flexibility Built In</h3>
+      <p>Plans adjust with changing needs. Coverage tier adjustments happen without penalty or reapplication.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <h3>Protection & Stability</h3>
+      <p>Coverage you can rely on as care needs evolve. The peace of mind that helps families plan with confidence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COVERAGE SECTION ============ -->
+<section class="coverage" id="coverage">
+  <div class="coverage-content">
+    <h2 class="section-title">Coverage Options Built for Real Families</h2>
+    <div class="coverage-grid">
+      <div class="coverage-item">
+        <h3>Life Insurance with LTC Riders</h3>
+        <ul>
+          <li>Leverages existing life insurance policies</li>
+          <li>Provides tax-advantaged care funding</li>
+          <li>Protects death benefit if care isn't needed</li>
+          <li>Often more affordable than standalone policies</li>
+          <li>Works alongside other planning strategies</li>
+        </ul>
+      </div>
+      <div class="coverage-item">
+        <h3>Long-Term Care Insurance</h3>
+        <ul>
+          <li>Dedicated coverage for care-specific expenses</li>
+          <li>Flexible benefit periods (3 years, 5 years, unlimited)</li>
+          <li>Covers assisted living, nursing, and in-home care</li>
+          <li>Premium stability once locked in</li>
+          <li>Tax-favorable treatment under HIPAA guidelines</li>
+        </ul>
+      </div>
+      <div class="coverage-item">
+        <h3>Medicaid Asset Protection</h3>
+        <ul>
+          <li>Strategies to preserve family assets for care</li>
+          <li>Maintains inheritance while qualifying for benefits</li>
+          <li>Works with Georgia Medicaid guidelines</li>
+          <li>Requires advance planning (look-back period considerations)</li>
+          <li>Protects spouse's assets and lifestyle</li>
+        </ul>
+      </div>
+      <div class="coverage-item">
+        <h3>Veterans & Survivor Benefits</h3>
+        <ul>
+          <li>VA Aid & Attendance benefits for qualified veterans</li>
+          <li>Significant monthly support for care expenses</li>
+          <li>Often overlooked but transformative resource</li>
+          <li>Determines eligibility and support structure</li>
+          <li>Integrates with other planning tools</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA SECTION ============ -->
+<section class="cta-section" id="cta">
+  <div class="cta-container">
+    <h2>Your Insurance Shouldn't Be a Mystery</h2>
+    <p>Most families don't understand how insurance fits into care planning until they're in the middle of it. We help you understand your options now—so you can plan with confidence and protect what matters most.</p>
+    <div class="cta-buttons">
+      <a href="/take-quiz" class="btn-light">Get a Personalized Overview</a>
+      <a href="https://truenorthseniorcare.com/booking" class="btn-outline">Talk to a Planning Specialist</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p>&copy; 2024 True North Senior Care. All rights reserved. | <a href="#" style="color: var(--white); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--white); text-decoration: none;">Terms of Service</a></p>
+</footer>
+
+<script>
+  // Navigation scroll effect
+  window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+
+</body>
+</html>
