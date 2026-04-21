@@ -1,5 +1,9 @@
 # True North Senior Care — Lead Qualification & Conversion System
 
+## System Walkthrough Video
+
+Watch the full walkthrough here: [System Walkthrough](https://youtu.be/Fw0Q3t7aUcs)
+
 ## Overview
 
 This system is a fully automated lead intake, scoring, nurturing, and conversion engine built within GoHighLevel.
