@@ -1,27 +1,22 @@
 # True North Senior Care — Lead Qualification & Conversion System
 
-## System Walkthrough Video
-
-Watch the full walkthrough here: [System Walkthrough](https://youtu.be/Fw0Q3t7aUcs)
-
 ## Overview
 
-This system is a fully automated lead intake, scoring, nurturing, and conversion engine built within GoHighLevel.
+This is a fully automated lead intake, scoring, nurturing, and conversion system built in GoHighLevel.
 
-It is designed to:
-- Identify high-intent leads immediately
-- Continuously update lead priority based on behavior
-- Route contacts into the correct follow-up experience
-- Transition qualified leads into booked calls and pipeline opportunities
-- Remove friction from both the customer journey and internal operations
-
-This is not a collection of workflows — it is a **connected system** where each component contributes to a unified outcome: converting the right leads at the right time.
+It captures leads, qualifies them based on intent, tracks their behavior over time, and transitions high-priority leads into booked calls and pipeline opportunities — all automatically.
 
 ---
 
-# System Architecture
+## 🎥 System Walkthrough
 
-The system is composed of five core layers:
+[![Watch the walkthrough](https://img.youtube.com/vi/Fw0Q3t7aUcs/maxresdefault.jpg)](https://youtu.be/Fw0Q3t7aUcs)
+
+---
+
+## System Architecture
+
+The system is composed of five connected layers:
 
 1. Lead Intake (Quiz Submission)
 2. Lead Scoring System
@@ -29,330 +24,170 @@ The system is composed of five core layers:
 4. Nurture Workflows (Hot, Warm, Cold)
 5. Booking & Pipeline Automation
 
-Each layer feeds into the next while also dynamically updating previous states.
+Each layer feeds into the next while continuously updating lead priority.
 
 ---
 
-# 1. Lead Intake (Quiz Submission)
+## Lead Intake (Quiz)
 
-## Purpose
-Capture user intent and classify leads immediately upon entry.
+- User completes quiz
+- Contact is created in CRM
+- Responses are stored
+- Lead is classified as:
+  - Hot
+  - Warm
+  - Cold
 
-## Process
-- User completes a quiz
-- A contact is created in the CRM
-- Data fields (quiz score, situation, timeline, etc.) are stored
-- A lead classification is assigned based on quiz score:
-  - Hot Lead
-  - Warm Lead
-  - Cold Lead
-
-## Outcome
-Every contact enters the system with:
-- A defined starting intent level
-- A corresponding classification tag
-- A baseline engagement score (assigned in the next layer)
+This immediately determines how the system treats the lead.
 
 ---
 
-# 2. Lead Scoring System
+## Lead Scoring System
 
-## Purpose
-Assign an initial engagement score based on intent.
+Initial engagement score is assigned based on quiz results:
 
-## Logic
+| Classification | Engagement Score |
+|----------------|------------------|
+| Hot Lead       | +15              |
+| Warm Lead      | +8               |
+| Cold Lead      | +3               |
 
-| Quiz Score | Classification | Engagement Score |
-|------------|----------------|------------------|
-| > 70       | Hot Lead       | +15              |
-| 40–70      | Warm Lead      | +8               |
-| < 39       | Cold Lead      | +3               |
-
-## Additional Actions
-- Tags are applied based on classification
-- Previous conflicting tags are removed to maintain clean state
-
-## Outcome
-Every contact now has:
-- A clear priority level
-- A measurable engagement score
-- A clean tag structure for routing
+This establishes a baseline for prioritization.
 
 ---
 
-# 3. Engagement Tracking & Behavioral Scoring
+## Engagement Tracking
 
-## Purpose
-Continuously update lead priority based on user behavior.
+The system continuously updates lead priority based on behavior.
 
-## Tracked Actions
+### Actions tracked:
+- Email link click → +5
+- Booking a call → +15
 
-### Email Engagement
-- If a contact clicks a link in an email:
-  → +5 engagement score
-
-### Booking Action
-- If a contact books a call:
-  → +15 engagement score
-
-## Implementation
-- Link clicks are tracked via tags (e.g., `clicked-email-link`)
-- Conditional checks inside workflows apply score increases
-- These checks exist across all nurture paths
-
-## Outcome
-Lead scoring is no longer static — it evolves based on real behavior.
+This allows leads to move up in priority based on real engagement, not just initial input.
 
 ---
 
-# 4. Engagement Routing System
+## Engagement Routing
 
-## Purpose
-Dynamically escalate leads based on engagement score.
+Leads are automatically escalated based on score:
 
-## Thresholds
+| Score | Status |
+|------|--------|
+| 10+  | Engaged |
+| 20+  | High Engagement |
+| 30+  | Sales Priority |
 
-| Engagement Score | Routing Outcome |
-|-----------------|----------------|
-| 10+             | Engaged        |
-| 20+             | High Engagement|
-| 30+             | Sales Priority |
-
-## Actions
-- Tags are applied when thresholds are reached
-- Higher-priority tags override lower ones
-- These tags can trigger additional workflows or notifications
-
-## Outcome
-The system identifies:
-- Who is warming up
-- Who is highly interested
-- Who is ready for sales interaction
+This determines who needs immediate attention.
 
 ---
 
-# 5. Scored Email Generator
+## Scored Email System
 
-## Purpose
-Deliver personalized communication based on lead classification.
+Leads receive different emails based on classification:
 
-## Logic
-- If Hot Lead → send Hot Lead email
-- If Warm Lead → send Warm Lead email
-- If Cold Lead → send Cold Lead email
+- Hot → urgency-driven
+- Warm → informational
+- Cold → low-pressure
 
-## Features
-- Emails contain tracked links (for engagement scoring)
-- Emails are aligned with urgency level and messaging tone
-- Each email acts as both communication and a scoring trigger
-
-## Outcome
-Every contact receives messaging that matches their intent level while feeding behavioral data back into the system.
+Each email includes tracked links that feed back into the engagement system.
 
 ---
 
-# 6. Nurture Workflows
+## Nurture Workflows
 
-There are three independent nurture paths:
+Three independent nurture paths:
 
-- Nurture Hot
-- Nurture Warm
-- Nurture Cold
+- Hot Nurture
+- Warm Nurture
+- Cold Nurture
 
-Each is triggered by its respective tag.
+### Features:
+- Timed follow-ups
+- Behavior-based scoring
+- Progressive engagement tracking
 
 ---
 
-## Core Design Principles
+## Critical Feature: Exit Logic
 
-All nurture workflows include:
-
-### 1. Conditional Exit Logic
 At multiple points in each workflow:
 
-- If contact has "booked call" tag
-  → Immediately removed from workflow
+- If a contact books a call
+  → They are immediately removed from nurture
 
-This ensures:
-- No unnecessary follow-up after conversion
-- No conflicting communication
-
----
-
-### 2. Timed Follow-Ups
-Each workflow includes delays:
-
-- Hot → Short delays (faster follow-up)
-- Warm → Moderate delays
-- Cold → Longer delays
+This prevents:
+- Over-messaging
+- Conflicting communication
+- Poor user experience
 
 ---
 
-### 3. Engagement-Based Scoring
-At each step:
+## Booking & Pipeline Automation
 
-- If email link clicked
-  → +5 engagement score
+When a contact books:
 
----
-
-### 4. Progressive Tagging
-If engagement occurs:
-
-- Hot → reinforced with nurture-hot
-- Warm → may escalate
-- Cold → may transition upward
+- Engagement score increases (+15)
+- Contact is removed from nurture
+- Confirmation email is sent
+- Opportunity is created
+- Contact is moved into pipeline
 
 ---
 
-### 5. Lifecycle Transitions
-At the end of workflows:
+## Customer Experience
 
-- Tags are updated
-- Contacts may move between nurture levels
-- System maintains a clean state for re-entry or escalation
-
----
-
-## Outcome
-
-Each nurture workflow:
-- Adapts to behavior
-- Prevents redundant communication
-- Keeps contacts moving toward conversion or reclassification
-
----
-
-# 7. Booking & Pipeline Automation
-
-## Trigger
-- Appointment booked (calendar event)
-
-## Actions
-
-1. Add "booked call" tag
-2. Increase engagement score (+15)
-3. Remove conflicting tags if necessary
-4. Send confirmation email
-5. Create or update opportunity
-6. Move opportunity into pipeline
-7. Trigger internal notification
-
----
-
-## Outcome
-
-Once a lead books:
-- They are removed from nurture workflows
-- They are transitioned into the sales pipeline
-- The system shifts from marketing → sales mode
-
----
-
-# Complete Customer Experience
-
-## Entry
-- User completes quiz
-- Receives immediate personalized email
-
----
-
-## Path 1: High Intent (Hot Lead)
+### Hot Lead
 - Receives urgent messaging
-- Clicks link → engagement score increases
-- Books quickly → enters pipeline immediately
+- Engages quickly
+- Books call → enters pipeline
+
+### Warm Lead
+- Receives educational content
+- Engagement increases over time
+- May escalate into high priority
+
+### Cold Lead
+- Receives low-pressure follow-ups
+- Can gradually increase engagement
+- May transition upward over time
 
 ---
 
-## Path 2: Medium Intent (Warm Lead)
-- Receives educational messaging
-- May click links → increases score
-- May escalate into high engagement
-- Eventually books or continues nurture
+## Admin Experience
+
+- See lead classification instantly
+- Track engagement score in real time
+- Identify priority leads immediately
+- Manage opportunities in pipeline
+- No manual follow-up required
 
 ---
 
-## Path 3: Low Intent (Cold Lead)
-- Receives low-pressure messaging
-- Longer delays between touches
-- Engagement can gradually increase score
-- May transition into warm or hot over time
+## Outcome
+
+This system provides:
+
+- Structured lead qualification
+- Behavior-driven prioritization
+- Automated follow-up
+- Clean transition into sales pipeline
 
 ---
 
-## Dynamic Behavior
+## Tech Stack
 
-At any point:
-- Clicking links increases score
-- Booking removes them from nurture
-- Tags update automatically
-- Messaging adapts based on behavior
-
----
-
-# Complete Admin Experience
-
-## Lead Visibility
-- Every contact has:
-  - Classification (hot/warm/cold)
-  - Engagement score
-  - Behavior history
+- GoHighLevel (CRM & Automation)
+- Workflow Builder
+- Tag-based segmentation
+- Event-driven triggers
 
 ---
 
-## Prioritization
-- Admin can immediately identify:
-  - Sales Priority leads
-  - High engagement leads
-  - Passive leads
+## Status
 
----
+System is fully built and tested.
 
-## Pipeline Automation
-- Opportunities are created automatically
-- Contacts move into correct pipeline stages
-- No manual data entry required
-
----
-
-## Notifications
-- Internal alerts for high-intent actions
-- Immediate visibility into booked calls
-
----
-
-## System Reliability
-- No duplicate messaging
-- No nurture overlap after booking
-- Clean tag management
-- Continuous scoring updates
-
----
-
-# Final Outcome
-
-This system transforms lead management into:
-
-- A structured qualification process
-- A behavior-driven prioritization engine
-- A fully automated nurture system
-- A seamless transition into sales execution
-
-It ensures that:
-- High-intent leads are acted on immediately
-- Medium-intent leads are developed properly
-- Low-intent leads are not ignored but handled efficiently
-
----
-
-# Summary
-
-This is a complete, production-ready CRM system that:
-
-- Captures intent
-- Measures engagement
-- Adapts to behavior
-- Automates follow-up
-- Enables sales execution
-
-All without manual intervention.
+Pending:
+- Insurance CTA integration
+- Optional future enhancements (SMS, reporting, etc.)
